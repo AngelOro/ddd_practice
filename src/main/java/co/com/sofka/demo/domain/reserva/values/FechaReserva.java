@@ -3,19 +3,19 @@ package co.com.sofka.demo.domain.reserva.values;
 import co.com.sofka.domain.generic.ValueObject;
 
 import java.time.DateTimeException;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
 public class FechaReserva implements ValueObject<String> {
-    private final LocalDate date;
+    private final LocalDateTime date;
     private final String format;
 
-    public FechaReserva(int day, int month, int year) {
+    public FechaReserva(int day, int month, int year, int hour, int minute ) {
         try {
-            date = LocalDate.of(year, month, day);
-            if(date.isBefore(LocalDate.now())){
-                throw new IllegalArgumentException("No valid the date of birth");
+            date = LocalDateTime.of(year, month, day, hour, minute);
+            if(date.isBefore(LocalDateTime.now())){
+                throw new IllegalArgumentException("Fecha de reserva no valida");
             }
         } catch (DateTimeException e){
             throw new IllegalArgumentException(e.getMessage());
@@ -24,7 +24,7 @@ public class FechaReserva implements ValueObject<String> {
     }
 
     private String generateFormat(){
-        return date.format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+        return date.format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm"));
     }
 
     @Override

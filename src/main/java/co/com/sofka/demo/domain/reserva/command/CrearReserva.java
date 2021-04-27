@@ -1,19 +1,25 @@
-package co.com.sofka.demo.domain.reserva.events;
+package co.com.sofka.demo.domain.reserva.command;
 
 import co.com.sofka.demo.domain.reserva.values.EstadoReserva;
 import co.com.sofka.demo.domain.reserva.values.FechaReserva;
 import co.com.sofka.demo.domain.reserva.values.ReservaId;
-import co.com.sofka.domain.generic.DomainEvent;
+import co.com.sofka.domain.generic.Command;
 
-public class ReservaActualizada extends DomainEvent {
+public class CrearReserva implements Command {
 
+    private final ReservaId idReserva;
     private final FechaReserva fechaReserva;
     private final EstadoReserva estadoReserva;
 
-    public ReservaActualizada(FechaReserva fecha, EstadoReserva estado) {
-        super("reservas.reserva.reservaactualizada");
-        this.fechaReserva = fecha;
-        this.estadoReserva = estado;
+    public CrearReserva(ReservaId idReserva, FechaReserva fecha, EstadoReserva estado){
+
+        this.idReserva = idReserva;
+        fechaReserva = fecha;
+        estadoReserva = estado;
+    }
+
+    public ReservaId getIdReserva() {
+        return idReserva;
     }
 
     public FechaReserva getFechaReserva() {

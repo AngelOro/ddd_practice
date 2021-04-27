@@ -9,7 +9,7 @@ public class Categoria extends Entity<CategoriaId> {
     protected NombreCategoria nombreCategoria;
     protected TiempoPrestamo tiempoPrestamo;
 
-    protected Categoria(CategoriaId entityId, NombreCategoria nombre, TiempoPrestamo tiempoPrestamo) {
+    public Categoria(CategoriaId entityId, NombreCategoria nombre, TiempoPrestamo tiempoPrestamo) {
         super(entityId);
         this.nombreCategoria = nombre;
         this.tiempoPrestamo = tiempoPrestamo;

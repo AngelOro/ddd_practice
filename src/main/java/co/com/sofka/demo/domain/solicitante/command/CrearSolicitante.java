@@ -1,9 +1,9 @@
-package co.com.sofka.demo.domain.solicitante.events;
+package co.com.sofka.demo.domain.solicitante.command;
 
 import co.com.sofka.demo.domain.solicitante.values.*;
-import co.com.sofka.domain.generic.DomainEvent;
+import co.com.sofka.domain.generic.Command;
 
-public class SolicitanteActualizado extends DomainEvent {
+public class CrearSolicitante implements Command {
 
     private final SolicitanteId idSolicitante;
     private final NombreSolicitante nombreSolicitante;
@@ -13,14 +13,13 @@ public class SolicitanteActualizado extends DomainEvent {
     private final EstadoSolicitante estadoSolicitante;
     private final NivelPrioridad prioridad;
 
-    public SolicitanteActualizado(SolicitanteId idSolicitante, NombreSolicitante nombre, ApellidoSolicitante apellido, Email email, Telefono telefono, EstadoSolicitante estadoSolicitante, NivelPrioridad prioridad) {
-        super("reservas.solicitante.solicitanteactualizado");
+    public CrearSolicitante(SolicitanteId idSolicitante, NombreSolicitante nombre, ApellidoSolicitante apellido, Email email, Telefono telefono, EstadoSolicitante estado, NivelPrioridad prioridad) {
         this.idSolicitante = idSolicitante;
-        this.nombreSolicitante = nombre;
-        this.apellidoSolicitante = apellido;
+        nombreSolicitante = nombre;
+        apellidoSolicitante = apellido;
         this.email = email;
         this.telefono = telefono;
-        this.estadoSolicitante = estadoSolicitante;
+        estadoSolicitante = estado;
         this.prioridad = prioridad;
     }
 

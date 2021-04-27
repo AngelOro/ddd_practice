@@ -10,14 +10,18 @@ public class SolicitanteCreado extends DomainEvent {
     private final ApellidoSolicitante apellidoSolicitante;
     private final Email email;
     private final Telefono telefono;
+    private final EstadoSolicitante estadoSolicitante;
+    private final NivelPrioridad prioridad;
 
-    public SolicitanteCreado(SolicitanteId idSolicitante, NombreSolicitante nombre, ApellidoSolicitante apellido, Email email, Telefono telefono) {
+    public SolicitanteCreado(SolicitanteId idSolicitante, NombreSolicitante nombre, ApellidoSolicitante apellido, Email email, Telefono telefono, EstadoSolicitante estado, NivelPrioridad prioridad) {
         super("reservas.solicitante.solicitantecreado");
         this.idSolicitante = idSolicitante;
         this.nombreSolicitante = nombre;
         this.apellidoSolicitante = apellido;
         this.email = email;
         this.telefono = telefono;
+        estadoSolicitante = estado;
+        this.prioridad = prioridad;
     }
 
     public SolicitanteId getIdSolicitante() {
@@ -38,5 +42,13 @@ public class SolicitanteCreado extends DomainEvent {
 
     public Telefono getTelefono() {
         return telefono;
+    }
+
+    public EstadoSolicitante getEstadoSolicitante() {
+        return estadoSolicitante;
+    }
+
+    public NivelPrioridad getPrioridad() {
+        return prioridad;
     }
 }

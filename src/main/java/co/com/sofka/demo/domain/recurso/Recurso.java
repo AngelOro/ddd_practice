@@ -9,20 +9,20 @@ import co.com.sofka.domain.generic.AggregateEvent;
 import co.com.sofka.domain.generic.DomainEvent;
 
 import java.util.List;
+import java.util.Map;
 
 
 public class Recurso extends AggregateEvent<RecursoId> {
 
     protected CodigoBarras codigo;
-    protected Categoria categoria;
+    protected Map<CategoriaId, Categoria> categorias;
     protected NombreRecurso nombreRecurso;
     protected DescripcionRecurso descripcion;
-    protected Stock stock;
     protected EstadoRecurso estadoRecurso;
 
-    public Recurso(RecursoId entityId, NombreRecurso nombreRecurso, CodigoBarras codigoBarras, DescripcionRecurso descripcion, Stock cantidadStock, EstadoRecurso estado){
+    public Recurso(RecursoId entityId, NombreRecurso nombreRecurso, CodigoBarras codigoBarras, DescripcionRecurso descripcion, EstadoRecurso estado){
         super(entityId);
-        appendChange(new RecursoCreado(entityId, codigoBarras, nombreRecurso, descripcion, cantidadStock, estado)).apply();
+        appendChange(new RecursoCreado(entityId, codigoBarras, nombreRecurso, descripcion, estado)).apply();
     }
 
     private Recurso(RecursoId entityId){
@@ -36,8 +36,8 @@ public class Recurso extends AggregateEvent<RecursoId> {
        return recurso;
     }
 
-    public void actualizarRecurso(RecursoId entityId, NombreRecurso nombreRecurso, CodigoBarras codigoBarras, DescripcionRecurso descripcion, Stock cantidadStock, EstadoRecurso estado){
-        appendChange(new RecursoActualizado(entityId, codigoBarras, nombreRecurso, descripcion, cantidadStock, estado)).apply();
+    public void actualizarRecurso(RecursoId entityId, NombreRecurso nombreRecurso, CodigoBarras codigoBarras, DescripcionRecurso descripcion, EstadoRecurso estado){
+        appendChange(new RecursoActualizado(entityId, codigoBarras, nombreRecurso, descripcion, estado)).apply();
     }
 
     public void agregarCategoria(CategoriaId idCategoria, NombreCategoria nombre, TiempoPrestamo tiempo){
@@ -46,5 +46,9 @@ public class Recurso extends AggregateEvent<RecursoId> {
 
     public void actualizarCategoria(CategoriaId idCategoria, NombreCategoria nombre, TiempoPrestamo tiempo){
         appendChange(new CategoriaActualizada(idCategoria, nombre, tiempo)).apply();
+    }
+
+    public Map<CategoriaId, Categoria> categorias() {
+        return Map.copyOf(categorias);
     }
 }

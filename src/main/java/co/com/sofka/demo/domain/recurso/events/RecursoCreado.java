@@ -9,16 +9,14 @@ public class RecursoCreado extends DomainEvent {
     private final CodigoBarras codigo;
     private final NombreRecurso nombreRecurso;
     private final DescripcionRecurso descripcion;
-    private final Stock cantidadStock;
     private final EstadoRecurso estado;
 
-    public RecursoCreado(RecursoId entityId, CodigoBarras codigo, NombreRecurso nombreRecurso, DescripcionRecurso descripcion, Stock cantidadStock, EstadoRecurso estado) {
+    public RecursoCreado(RecursoId entityId, CodigoBarras codigo, NombreRecurso nombreRecurso, DescripcionRecurso descripcion, EstadoRecurso estado) {
         super("reservas.recurso.recursocreado");
         this.entityId = entityId;
         this.codigo = codigo;
         this.nombreRecurso = nombreRecurso;
         this.descripcion = descripcion;
-        this.cantidadStock = cantidadStock;
         this.estado = estado;
     }
 
@@ -36,10 +34,6 @@ public class RecursoCreado extends DomainEvent {
 
     public DescripcionRecurso getDescripcion() {
         return descripcion;
-    }
-
-    public Stock getCantidadStock() {
-        return cantidadStock;
     }
 
     public EstadoRecurso getEstado() {

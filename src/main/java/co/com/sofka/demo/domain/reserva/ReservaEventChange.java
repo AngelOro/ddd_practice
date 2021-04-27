@@ -13,10 +13,8 @@ public class ReservaEventChange extends EventChange {
         });
 
         apply((ReservaActualizada event) -> {
-            if (event.getIdReserva().equals(reserva.identity())){
                 reserva.fechaReserva = event.getFechaReserva();
                 reserva.estadoReserva = event.getEstadoReserva();
-            }
         });
     }
 }

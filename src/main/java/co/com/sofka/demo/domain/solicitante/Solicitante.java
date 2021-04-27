@@ -8,6 +8,7 @@ import co.com.sofka.domain.generic.AggregateEvent;
 import co.com.sofka.domain.generic.DomainEvent;
 
 import java.util.List;
+import java.util.Map;
 
 public class Solicitante extends AggregateEvent<SolicitanteId> {
 
@@ -16,11 +17,13 @@ public class Solicitante extends AggregateEvent<SolicitanteId> {
     protected ApellidoSolicitante apellidoSolicitante;
     protected Email email;
     protected Telefono telefono;
-    protected Sancion sancion;
+    protected Map<SancionId, Sancion> sancion;
+    protected EstadoSolicitante estado;
+    protected NivelPrioridad prioridad;
 
-    public Solicitante(SolicitanteId idSolicitante, NombreSolicitante nombre, ApellidoSolicitante apellido, Email email, Telefono telefono){
+    public Solicitante(SolicitanteId idSolicitante, NombreSolicitante nombre, ApellidoSolicitante apellido, Email email, Telefono telefono, EstadoSolicitante estado, NivelPrioridad prioridad){
         super(idSolicitante);
-        appendChange(new SolicitanteCreado(idSolicitante, nombre, apellido, email, telefono)).apply();
+        appendChange(new SolicitanteCreado(idSolicitante, nombre, apellido, email, telefono, estado, prioridad)).apply();
     }
 
     public Solicitante(SolicitanteId entityId) {
@@ -34,11 +37,15 @@ public class Solicitante extends AggregateEvent<SolicitanteId> {
         return solicitante;
     }
 
-    public void actualizarSolicitante(SolicitanteId idSolicitante, NombreSolicitante nombre, ApellidoSolicitante apellido, Email email, Telefono telefono){
-        appendChange(new SolicitanteActualizado(idSolicitante, nombre, apellido, email, telefono)).apply();
+    public void actualizarSolicitante(SolicitanteId idSolicitante, NombreSolicitante nombre, ApellidoSolicitante apellido, Email email, Telefono telefono, EstadoSolicitante estado, NivelPrioridad prioridad){
+        appendChange(new SolicitanteActualizado(idSolicitante, nombre, apellido, email, telefono, estado, prioridad)).apply();
     }
 
-    public void asignarSancion(SancionId idSancion, FechaFinSancion fechaFinalizacion, EstadoSancion estadoSancion){
-        appendChange(new SancionAsignada(idSancion, fechaFinalizacion, estadoSancion)).apply();
+    public void asignarSancion(SancionId idSancion, FechaFinSancion fechaFinalizacion){
+        appendChange(new SancionAsignada(idSancion, fechaFinalizacion)).apply();
+    }
+
+    public Map<SancionId, Sancion> sanciones() {
+        return Map.copyOf(sancion);
     }
 }
